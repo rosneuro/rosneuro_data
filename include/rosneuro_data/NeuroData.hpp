@@ -19,19 +19,23 @@ struct NeuroDataInfo {
 template<class T>
 class NeuroData {
 	public:
+		NeuroData(const std::string name="unknown");
 		NeuroData(unsigned int ns, unsigned int nch, const std::string name="unknown");
 		virtual ~NeuroData(void);
 
-		T* get(void);
-		T* get(void) const;
-		NeuroDataInfo* get_info(void);
-		
+		T* data(void);
+		T* data(void) const;
+		NeuroDataInfo* info(void);
+
+		void reserve(unsigned int ns, unsigned int nch);
+	
+		size_t		size(void) const;
 		size_t		nchannels(void) const;
 		size_t		nsamples(void) const;
 		size_t		stride(void) const;
 		std::string name(void) const;
 		
-		void info(void);
+		void dump(void);
 
 
 	private:

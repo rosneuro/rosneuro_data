@@ -13,11 +13,13 @@ int main(int argc, char** argv) {
 
 	NeuroData<float>	eeg(ns, neeg, "EEG");
 	NeuroData<float>	exg(ns, nexg, "EXG");
-	NeuroData<int32_t>	tri(ns, ntri, "TRI");
+	NeuroData<int32_t>	tri("TRI");
 
-	ieeg = eeg.get_info();
-	iexg = exg.get_info();
-	itri = tri.get_info();
+	tri.reserve(ns, ntri);
+
+	ieeg = eeg.info();
+	iexg = exg.info();
+	itri = tri.info();
 
 	// Info eeg
 	ieeg->unit = "[uV]";
@@ -44,9 +46,9 @@ int main(int argc, char** argv) {
 	itri->isint  = 1;
 	itri->labels = {"Status", "ciao"};
 
-	eeg.info();
-	exg.info();
-	tri.info();
+	eeg.dump();
+	exg.dump();
+	tri.dump();
 
 	return 0;
 }

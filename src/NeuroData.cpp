@@ -7,14 +7,40 @@
 namespace rosneuro {
 
 template<class T>
+NeuroData<T>::NeuroData(const std::string name) {
+	this->name_		= name;
+	this->ns_		= 0;
+	this->nch_		= 0;
+	this->stride_	= 0;
+	this->data_		= nullptr;
+	this->info_		= nullptr;
+}
+
+template<class T>
 NeuroData<T>::NeuroData(unsigned int ns, unsigned int nch, const std::string name) {
+	this->name_		= name;
+	this->reserve(ns, nch);
+}
+
+template<class T>
+NeuroData<T>::~NeuroData(void) {
+
+	if(this->data_ != nullptr)
+		free(this->data_);
+
+	if(this->info_ != nullptr)
+		free(this->info_);
+
+}
+
+template<class T>
+void NeuroData<T>::reserve(unsigned int ns, unsigned int nch) {
 
 	size_t ssize;
 	
 	this->ns_		= ns;
 	this->nch_		= nch;
 	this->stride_	= this->nch_ * sizeof(T);
-	this->name_		= name;
 
 	// Allocate data memory
 	ssize = this->stride_ * this->ns_;	
@@ -31,28 +57,22 @@ NeuroData<T>::NeuroData(unsigned int ns, unsigned int nch, const std::string nam
 }
 
 template<class T>
-NeuroData<T>::~NeuroData(void) {
-
-	if(this->data_ != nullptr)
-		free(this->data_);
-
-	if(this->info_ != nullptr)
-		free(this->info_);
-
+size_t NeuroData<T>::size(void) const {
+	return (this->nch_*this->ns_);
 }
 
 template<class T>
-T* NeuroData<T>::get(void) {
+T* NeuroData<T>::data(void) {
 	return this->data_;
 }
 
 template<class T>
-T* NeuroData<T>::get(void) const {
+T* NeuroData<T>::data(void) const {
 	return this->data_;
 }
 
 template<class T>
-NeuroDataInfo* NeuroData<T>::get_info(void) {
+NeuroDataInfo* NeuroData<T>::info(void) {
 	return this->info_;
 }
 
@@ -77,7 +97,7 @@ std::string NeuroData<T>::name(void) const {
 }
 
 template<class T>
-void NeuroData<T>::info(void) {
+void NeuroData<T>::dump(void) {
 
 	printf("[info] '%s' NeuroData:\n", this->name().c_str());
 	printf(" |- nsamples:\t\t%zu\n", this->nsamples());

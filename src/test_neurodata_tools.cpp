@@ -18,8 +18,8 @@ int main(int argc, char** argv) {
 	NeuroData<float>	eeg(ns, neeg, "EEG");
 	NeuroData<int32_t>	tri(ns, ntri, "TRI");
 
-	ieeg = eeg.get_info();
-	itri = tri.get_info();
+	ieeg = eeg.info();
+	itri = tri.info();
 
 	// Info eeg
 	ieeg->unit = "[uV]";
@@ -38,22 +38,20 @@ int main(int argc, char** argv) {
 	itri->isint  = 1;
 	itri->labels = {"Status"};
 
-	eeg.info();
-	tri.info();
+	eeg.dump();
+	tri.dump();
 
 
 	// Genereting some data
-	size_t nelem_tri = tri.nsamples()*tri.nchannels();
-	size_t nelem_eeg = eeg.nsamples()*eeg.nchannels();
-	int32_t tritmp[nelem_tri];
-	float eegtmp[nelem_eeg];
-	for(auto i=0; i<nelem_tri; i++)
+	int32_t tritmp[tri.size()];
+	float eegtmp[eeg.size()];
+	for(auto i=0; i<tri.size(); i++)
 		tritmp[i] = i+1;
-	memcpy(tri.get(), tritmp, nelem_tri*sizeof(int32_t));
+	memcpy(tri.data(), tritmp, tri.size()*sizeof(int32_t));
 	
-	for(auto i=0; i<nelem_eeg; i++)
+	for(auto i=0; i<eeg.size(); i++)
 		eegtmp[i] = i+1;
-	memcpy(eeg.get(), eegtmp, nelem_eeg*sizeof(float));
+	memcpy(eeg.data(), eegtmp, eeg.size()*sizeof(float));
 	
 	// Convert to message
 	NeuroDataTools::ToMessage(eeg, mfloat);

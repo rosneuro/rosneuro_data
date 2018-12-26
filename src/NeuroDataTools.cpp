@@ -36,7 +36,7 @@ bool NeuroDataTools::ToMessage(const NeuroData<float>& data, rosneuro_msgs::Neur
 
 	ns    = data.nsamples();
 	nch   = data.nchannels(); 
-	array = data.get();
+	array = data.data();
 	
 	NeuroDataTools::ConfigureDataLayout(ns, nch, msg.array.layout);
 	msg.array.data.clear();
@@ -52,7 +52,7 @@ bool NeuroDataTools::ToMessage(const NeuroData<int32_t>& data, rosneuro_msgs::Ne
 
 	ns    = data.nsamples();
 	nch   = data.nchannels(); 
-	array = data.get();
+	array = data.data();
 	
 	NeuroDataTools::ConfigureDataLayout(ns, nch, msg.array.layout);
 	msg.array.data.clear();
