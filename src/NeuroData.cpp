@@ -47,27 +47,32 @@ T* NeuroData<T>::get(void) {
 }
 
 template<class T>
+T* NeuroData<T>::get(void) const {
+	return this->data_;
+}
+
+template<class T>
 NeuroDataInfo* NeuroData<T>::get_info(void) {
 	return this->info_;
 }
 
 template<class T>
-size_t NeuroData<T>::nchannels(void) {
+size_t NeuroData<T>::nchannels(void) const {
 	return this->nch_;
 }
 
 template<class T>
-size_t NeuroData<T>::nsamples(void) {
+size_t NeuroData<T>::nsamples(void) const {
 	return this->ns_;
 }
 
 template<class T>
-size_t NeuroData<T>::stride(void) {
+size_t NeuroData<T>::stride(void) const {
 	return this->stride_;
 }
 
 template<class T>
-std::string NeuroData<T>::name(void) {
+std::string NeuroData<T>::name(void) const {
 	return this->name_;
 }
 

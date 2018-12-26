@@ -3,7 +3,11 @@ project(rosneuro_data)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-find_package(catkin REQUIRED COMPONENTS roscpp)
+find_package(catkin REQUIRED COMPONENTS 
+			 roscpp
+			 std_msgs
+			 rosneuro_msgs
+)
 
 find_package(PkgConfig)
 
@@ -16,6 +20,8 @@ catkin_package(
 	${PROJECT_NAME}
   CATKIN_DEPENDS
   	roscpp
+	std_msgs
+	rosneuro_msgs
 
   DEPENDS
 )
@@ -30,6 +36,7 @@ include_directories(${catkin_INCLUDE_DIRS}
 
 add_library(${PROJECT_NAME}
 			src/NeuroData.cpp
+			src/NeuroDataTools.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} 
@@ -46,4 +53,7 @@ add_dependencies(${PROJECT_NAME}
 
 add_executable(test_neurodata src/test_neurodata.cpp)
 target_link_libraries(test_neurodata rosneuro_data)
+
+add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
+target_link_libraries(test_neurodata_tools rosneuro_data)
 

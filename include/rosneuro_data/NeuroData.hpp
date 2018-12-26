@@ -23,12 +23,13 @@ class NeuroData {
 		virtual ~NeuroData(void);
 
 		T* get(void);
+		T* get(void) const;
 		NeuroDataInfo* get_info(void);
 		
-		size_t		nchannels(void);
-		size_t		nsamples(void);
-		size_t		stride(void);
-		std::string name(void);
+		size_t		nchannels(void) const;
+		size_t		nsamples(void) const;
+		size_t		stride(void) const;
+		std::string name(void) const;
 		
 		void info(void);
 
