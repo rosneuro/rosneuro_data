@@ -37,6 +37,8 @@ class NeuroData {
 		
 		void dump(void);
 
+	private:
+		void destroy(void);
 
 	private:
 		T*				data_;

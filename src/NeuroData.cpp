@@ -24,13 +24,17 @@ NeuroData<T>::NeuroData(unsigned int ns, unsigned int nch, const std::string nam
 
 template<class T>
 NeuroData<T>::~NeuroData(void) {
+	this->destroy();
+}
+
+template<class T>
+void NeuroData<T>::destroy(void) {
 
 	if(this->data_ != nullptr)
 		free(this->data_);
 
 	if(this->info_ != nullptr)
 		free(this->info_);
-
 }
 
 template<class T>
