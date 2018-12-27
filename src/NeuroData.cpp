@@ -99,6 +99,9 @@ std::string NeuroData<T>::name(void) const {
 template<class T>
 void NeuroData<T>::dump(void) {
 
+	if(this->info_ == nullptr)
+		return;
+	
 	printf("[info] '%s' NeuroData:\n", this->name().c_str());
 	printf(" |- nsamples:\t\t%zu\n", this->nsamples());
 	printf(" |- nchannels:\t\t%zu\n", this->nchannels());
