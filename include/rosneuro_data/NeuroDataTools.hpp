@@ -13,8 +13,8 @@ class NeuroDataTools {
 
 	public:
 
-		static bool ConfigureMessage(const NeuroDataInfo& data, rosneuro_msgs::NeuroDataInfo& msg);
-		static bool ConfigureData(const rosneuro_msgs::NeuroDataInfo& msg, NeuroDataInfo& data);
+		static bool ConfigureMessage(const NeuroDataInfo* data, rosneuro_msgs::NeuroDataInfo& msg);
+		static bool ConfigureData(const rosneuro_msgs::NeuroDataInfo& msg, NeuroDataInfo* data);
 
 		static bool ToMessage(const NeuroData<float>& data, rosneuro_msgs::NeuroDataFloat& msg);
 		static bool ToMessage(const NeuroData<int32_t>& data, rosneuro_msgs::NeuroDataInt32& msg);
