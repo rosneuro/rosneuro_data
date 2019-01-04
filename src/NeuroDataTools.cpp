@@ -5,88 +5,126 @@
 
 namespace rosneuro {
 
-bool NeuroDataTools::ConfigureMessage(const NeuroDataInfo* data, rosneuro_msgs::NeuroDataInfo& msg) {
+bool NeuroDataTools::ConfigureNeuroMessage(const NeuroFrame& frame, rosneuro_msgs::NeuroFrame& msg) {
 
-	if(data == nullptr)
-		return false;
+	// TODO Header configuration
 
-	msg.unit			= data->unit;
-	msg.transducter		= data->transducter;
-	msg.prefiltering	= data->prefiltering;
-	msg.minmax			= data->minmax;
-	msg.labels			= data->labels;
-	msg.isint			= data->isint;
+	msg.sr = frame.sr;
+	FromNeuroInfo(*frame.eeg.info(), msg.eeg.info);
+	FromNeuroInfo(*frame.exg.info(), msg.exg.info);
+	FromNeuroInfo(*frame.tri.info(), msg.tri.info);
 
 	return true;
 }
 
-bool NeuroDataTools::ConfigureData(const rosneuro_msgs::NeuroDataInfo& msg, NeuroDataInfo* data) {
+bool NeuroDataTools::ConfigureNeuroFrame(const rosneuro_msgs::NeuroFrame& msg, NeuroFrame& frame) {
 
-	if(data == nullptr)
-		return false;
-	
-	data->unit			= msg.unit;
-	data->transducter	= msg.transducter;
-	data->prefiltering	= msg.prefiltering;
-	data->minmax			= msg.minmax;
-	data->labels			= msg.labels;
-	data->isint			= msg.isint;
+	frame.sr = msg.sr;
+	ToNeuroInfo(msg.eeg.info, *frame.eeg.info());
+	ToNeuroInfo(msg.exg.info, *frame.exg.info());
+	ToNeuroInfo(msg.tri.info, *frame.tri.info());
 
 	return true;
 }
 
-bool NeuroDataTools::ToMessage(const NeuroData<float>& data, rosneuro_msgs::NeuroDataFloat& msg) {
+bool NeuroDataTools::FromNeuroInfo(const NeuroDataInfo& info, rosneuro_msgs::NeuroDataInfo& msg) {
 
-	size_t ns, nch;
-	float* array;
-
-	ns    = data.nsamples();
-	nch   = data.nchannels(); 
-	array = data.data();
-	
-	NeuroDataTools::ConfigureDataLayout(ns, nch, msg.array.layout);
-	msg.array.data.clear();
-
-	msg.array.data.assign(array, array + (ns*nch));
+	msg.nsamples		= info.nsamples;
+	msg.nchannels		= info.nchannels;
+	msg.stride			= info.stride;
+	msg.unit			= info.unit;
+	msg.transducter		= info.transducter;
+	msg.prefiltering	= info.prefiltering;
+	msg.isint			= info.isint;
+	msg.minmax			= info.minmax;
+	msg.labels			= info.labels;
 
 	return true;
 }
 
-bool NeuroDataTools::ToMessage(const NeuroData<int32_t>& data, rosneuro_msgs::NeuroDataInt32& msg) {
-	size_t ns, nch;
-	int32_t* array;
+bool NeuroDataTools::ToNeuroInfo(const rosneuro_msgs::NeuroDataInfo& msg, NeuroDataInfo& info) {
 
-	ns    = data.nsamples();
-	nch   = data.nchannels(); 
-	array = data.data();
-	
-	NeuroDataTools::ConfigureDataLayout(ns, nch, msg.array.layout);
-	msg.array.data.clear();
-
-	msg.array.data.assign(array, array + (ns*nch));
+	info.nsamples		= msg.nsamples;
+	info.nchannels		= msg.nchannels;
+	info.stride			= msg.stride;
+	info.unit			= msg.unit;
+	info.transducter	= msg.transducter;
+	info.prefiltering	= msg.prefiltering;
+	info.isint			= msg.isint;
+	info.minmax			= msg.minmax;
+	info.labels			= msg.labels;
 
 	return true;
 }
 
-void NeuroDataTools::ConfigureDataLayout(size_t ns, size_t nch, std_msgs::MultiArrayLayout& layout) {
+bool NeuroDataTools::FromNeuroFrame(const NeuroFrame& frame, rosneuro_msgs::NeuroFrame& msg) {
+
+	// Cleaning data message
+	FromNeuroData(frame.eeg, msg.eeg);
+	FromNeuroData(frame.exg, msg.exg);
+	FromNeuroData(frame.tri, msg.tri);
 
 
-	layout.dim.clear();
 
-	// Define dimension for samples and channels
-	layout.dim.push_back(std_msgs::MultiArrayDimension());
-	layout.dim.push_back(std_msgs::MultiArrayDimension());
-
-	layout.data_offset = 0;
-
-	layout.dim[0].size = nch;
-	layout.dim[0].stride = ns*nch;
-	layout.dim[0].label = "channels";
-	
-	layout.dim[1].size = ns;
-	layout.dim[1].stride = ns;
-	layout.dim[1].label = "samples";
+	return true;
 }
+
+bool NeuroDataTools::ToNeuroFrame(const rosneuro_msgs::NeuroFrame& msg, NeuroFrame& frame) {
+
+	ToNeuroData(msg.eeg, frame.eeg);
+	ToNeuroData(msg.exg, frame.exg);
+	ToNeuroData(msg.tri, frame.tri);
+
+	return true;
+}
+
+bool NeuroDataTools::FromNeuroData(const NeuroData<float>& data, rosneuro_msgs::NeuroDataFloat& msg) {
+	
+	// Clear message data
+	msg.data.clear();
+
+	// Assign new data to message
+	msg.data.assign(data.data(), data.data() + data.size());
+}
+
+bool NeuroDataTools::FromNeuroData(const NeuroData<int32_t>& data, rosneuro_msgs::NeuroDataInt32& msg) {
+	
+	// Clear message data
+	msg.data.clear();
+
+	// Assign new data to message
+	msg.data.assign(data.data(), data.data() + data.size());
+}
+
+bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataFloat& msg, NeuroData<float>& data) {
+
+
+	float* arr = data.data();
+	//auto i = 0;
+
+	//for(auto it = msg.data.begin(); it != msg.data.end(); ++it) {
+	//	arr[i] = (*it);
+	//	i++;
+	//}
+	std::copy(msg.data.begin(), msg.data.end(), arr);
+
+	return true;
+}
+
+bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataInt32& msg, NeuroData<int32_t>& data) {
+
+	int32_t* arr = data.data();
+	//auto i = 0;
+
+	//printf("size int: %zu\n", msg.data.size());
+	//for(auto it = msg.data.begin(); it != msg.data.end(); ++it) {
+	//	arr[i] = (*it);
+	//	i++;
+	//}
+	std::copy(msg.data.begin(), msg.data.end(), arr);
+	return true;
+}
+
 
 }
 

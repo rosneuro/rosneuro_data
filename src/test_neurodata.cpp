@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 	iexg->transducter = "Active";
 	iexg->prefiltering = "None";
 	iexg->minmax = {-823000.0, 823000.0};
-	iexg->isint  = 0;
+	ieeg->isint  = 0;
 	iexg->labels = {"EXG1", "EXG2", "EXG3"};
 	
 	// Info trigger
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 	itri->transducter = "Active";
 	itri->prefiltering = "None";
 	itri->minmax = {-10.0, 10.0};
-	itri->isint  = 1;
+	ieeg->isint  = 1;
 	itri->labels = {"Status", "ciao"};
 
 	eeg.dump();

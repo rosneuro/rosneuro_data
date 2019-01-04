@@ -54,16 +54,16 @@ int main(int argc, char** argv) {
 	memcpy(eeg.data(), eegtmp, eeg.size()*sizeof(float));
 	
 	// Convert to message
-	NeuroDataTools::ToMessage(eeg, mfloat);
-	NeuroDataTools::ToMessage(tri, mint32);
+	NeuroDataTools::FromNeuroData(eeg, mfloat);
+	NeuroDataTools::FromNeuroData(tri, mint32);
 
 	printf("EEG message data:\n");
-	for(auto it = mfloat.array.data.begin(); it != mfloat.array.data.end(); ++it)
+	for(auto it = mfloat.data.begin(); it != mfloat.data.end(); ++it)
 		printf("%f ", (*it));
 	printf("\n\n");
 
 	printf("TRI message data:\n");
-	for(auto it = mint32.array.data.begin(); it != mint32.array.data.end(); ++it)
+	for(auto it = mint32.data.begin(); it != mint32.data.end(); ++it)
 		printf("%d ", (*it));
 	printf("\n");
 

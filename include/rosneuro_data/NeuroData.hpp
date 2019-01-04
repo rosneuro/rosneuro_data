@@ -8,13 +8,18 @@
 namespace rosneuro {
 
 struct NeuroDataInfo {
+	size_t						nsamples		= 0;
+	size_t						nchannels		= 0;
+	size_t						stride			= 0;
 	std::string					unit			= "";
 	std::string					transducter		= "";
 	std::string					prefiltering	= "";
+	unsigned int				isint			= 0;
 	std::vector<double>			minmax{0.0f, 0.0f};
 	std::vector<std::string>	labels;
-	int							isint			= 0;
 };
+
+
 
 template<class T>
 class NeuroData {
@@ -24,8 +29,9 @@ class NeuroData {
 		virtual ~NeuroData(void);
 
 		T* data(void);
-		T* data(void) const;
+		const T* data(void) const;
 		NeuroDataInfo* info(void);
+		const NeuroDataInfo* info(void) const;
 
 		void reserve(unsigned int ns, unsigned int nch);
 	
@@ -42,15 +48,19 @@ class NeuroData {
 
 	private:
 		T*				data_;
-		NeuroDataInfo*	info_;
-		
-		size_t		ns_;
-		size_t		nch_;
-		size_t		stride_;
-		std::string name_;
+		NeuroDataInfo	info_;
+		std::string		name_;
 };
 
+struct NeuroFrame   {
 
+	unsigned int		sr;
+	NeuroData<float>	eeg;
+	NeuroData<float>	exg;
+	NeuroData<int32_t>	tri;
+
+	NeuroFrame() : eeg("EEG"), exg("EXG"), tri("TRI"), sr(0) {} 
+};
 
 }
 
