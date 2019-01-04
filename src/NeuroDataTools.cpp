@@ -100,12 +100,6 @@ bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataFloat& msg, Neuro
 
 
 	float* arr = data.data();
-	//auto i = 0;
-
-	//for(auto it = msg.data.begin(); it != msg.data.end(); ++it) {
-	//	arr[i] = (*it);
-	//	i++;
-	//}
 	std::copy(msg.data.begin(), msg.data.end(), arr);
 
 	return true;
@@ -114,14 +108,8 @@ bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataFloat& msg, Neuro
 bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataInt32& msg, NeuroData<int32_t>& data) {
 
 	int32_t* arr = data.data();
-	//auto i = 0;
-
-	//printf("size int: %zu\n", msg.data.size());
-	//for(auto it = msg.data.begin(); it != msg.data.end(); ++it) {
-	//	arr[i] = (*it);
-	//	i++;
-	//}
 	std::copy(msg.data.begin(), msg.data.end(), arr);
+
 	return true;
 }
 
