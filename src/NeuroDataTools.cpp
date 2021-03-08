@@ -85,6 +85,8 @@ bool NeuroDataTools::FromNeuroData(const NeuroData<float>& data, rosneuro_msgs::
 
 	// Assign new data to message
 	msg.data.assign(data.data(), data.data() + data.size());
+
+	return true;
 }
 
 bool NeuroDataTools::FromNeuroData(const NeuroData<int32_t>& data, rosneuro_msgs::NeuroDataInt32& msg) {
@@ -94,6 +96,8 @@ bool NeuroDataTools::FromNeuroData(const NeuroData<int32_t>& data, rosneuro_msgs
 
 	// Assign new data to message
 	msg.data.assign(data.data(), data.data() + data.size());
+
+	return true;
 }
 
 bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataFloat& msg, NeuroData<float>& data) {
