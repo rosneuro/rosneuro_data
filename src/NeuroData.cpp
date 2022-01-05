@@ -24,6 +24,34 @@ NeuroData<T>::~NeuroData(void) {
 }
 
 template<class T>
+NeuroData<T>::NeuroData(const NeuroData& data) {
+	//printf("[debug] - Calling copy constructor\n");
+	this->name_ = data.name();
+	this->reserve(data.nsamples(), data.nchannels());
+	std::copy(data.data(), data.data() + data.nsamples()*data.nchannels(), this->data_);
+	this->info_ = data.getinfo();
+}
+
+template<class T>
+NeuroData<T>& NeuroData<T>::operator=(const NeuroData& data) {
+
+	//printf("[debug] - Calling copy assignment\n");
+	T* p = new T[data.nsamples()*data.nchannels()];
+	std::copy(data.data(), data.data() + data.nsamples()*data.nchannels(), p);
+	
+	if(this->data_ != nullptr)
+		free(this->data_);
+	
+	this->name_ = data.name();
+	this->reserve(data.nsamples(), data.nchannels());
+	this->info_ = data.getinfo();
+	this->data_ = p;
+
+	return *this;
+
+}
+
+template<class T>
 void NeuroData<T>::destroy(void) {
 	if(this->data_ != nullptr)
 		free(this->data_);
@@ -70,6 +98,11 @@ NeuroDataInfo* NeuroData<T>::info(void) {
 template<class T>
 const NeuroDataInfo* NeuroData<T>::info(void) const {
 	return &(this->info_);
+}
+
+template<class T>
+NeuroDataInfo NeuroData<T>::getinfo(void) const {
+	return this->info_;
 }
 
 template<class T>

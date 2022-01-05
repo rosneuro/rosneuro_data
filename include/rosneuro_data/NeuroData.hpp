@@ -28,10 +28,14 @@ class NeuroData {
 		NeuroData(unsigned int ns, unsigned int nch, const std::string name="unknown");
 		virtual ~NeuroData(void);
 
+		NeuroData(const NeuroData& data);
+		NeuroData& operator=(const NeuroData& data);
+
 		T* data(void);
 		const T* data(void) const;
 		NeuroDataInfo* info(void);
 		const NeuroDataInfo* info(void) const;
+		NeuroDataInfo getinfo(void) const;
 
 		void reserve(unsigned int ns, unsigned int nch);
 	

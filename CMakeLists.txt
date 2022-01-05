@@ -54,6 +54,9 @@ add_dependencies(${PROJECT_NAME}
 add_executable(test_neurodata src/test_neurodata.cpp)
 target_link_libraries(test_neurodata rosneuro_data)
 
+add_executable(test_neurodata_operations src/test_neurodata_operations.cpp)
+target_link_libraries(test_neurodata_operations rosneuro_data)
+
 add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
 target_link_libraries(test_neurodata_tools rosneuro_data)
 

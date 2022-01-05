@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>rosneuro_data</name>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <description>ROSNEURO Data package</description>
   <author email="luca.tonin@epfl.ch">Luca Tonin</author>
   <maintainer email="luca.tonin@epfl.ch">Luca Tonin</maintainer>
