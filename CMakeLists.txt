@@ -60,3 +60,12 @@ target_link_libraries(test_neurodata_operations rosneuro_data)
 add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
 target_link_libraries(test_neurodata_tools rosneuro_data)
 
+
+#################
+##   Install   ##
+#################
+install(TARGETS ${PROJECT_NAME}
+	LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+
