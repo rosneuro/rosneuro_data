@@ -5,6 +5,7 @@
 
 namespace rosneuro {
 
+
 bool NeuroDataTools::ConfigureNeuroMessage(const NeuroFrame& frame, rosneuro_msgs::NeuroFrame& msg) {
 
 	// TODO Header configuration
@@ -119,5 +120,4 @@ bool NeuroDataTools::ToNeuroData(const rosneuro_msgs::NeuroDataInt32& msg, Neuro
 
 
 }
-
 #endif

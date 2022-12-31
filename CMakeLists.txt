@@ -52,13 +52,13 @@ add_dependencies(${PROJECT_NAME}
 #################
 
 add_executable(test_neurodata src/test_neurodata.cpp)
-target_link_libraries(test_neurodata rosneuro_data)
+target_link_libraries(test_neurodata ${PROJECT_NAME} ${catkin_LIBRARIES}) 
 
 add_executable(test_neurodata_operations src/test_neurodata_operations.cpp)
-target_link_libraries(test_neurodata_operations rosneuro_data)
+target_link_libraries(test_neurodata_operations ${PROJECT_NAME} ${catkin_LIBRARIES})
 
 add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
-target_link_libraries(test_neurodata_tools rosneuro_data)
+target_link_libraries(test_neurodata_tools ${PROJECT_NAME} ${catkin_LIBRARIES})
 
 
 #################
@@ -67,5 +67,8 @@ target_link_libraries(test_neurodata_tools rosneuro_data)
 install(TARGETS ${PROJECT_NAME}
 	LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
+
+install(DIRECTORY include/${PROJECT_NAME}/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
 
