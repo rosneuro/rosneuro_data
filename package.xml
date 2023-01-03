@@ -3,8 +3,8 @@
   <name>rosneuro_data</name>
   <version>1.0.0</version>
   <description>ROSNEURO Data package</description>
-  <author email="luca.tonin@epfl.ch">Luca Tonin</author>
-  <maintainer email="luca.tonin@epfl.ch">Luca Tonin</maintainer>
+  <author email="luca.tonin@dei.unipd.it">Luca Tonin</author>
+  <maintainer email="luca.tonin@dei.unipd.it">Luca Tonin</maintainer>
 
   <license>GPLv3</license>
 
