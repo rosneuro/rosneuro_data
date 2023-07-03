@@ -22,7 +22,6 @@ catkin_package(
   	roscpp
 	std_msgs
 	rosneuro_msgs
-
   DEPENDS
 )
 
@@ -53,12 +52,15 @@ add_dependencies(${PROJECT_NAME}
 
 add_executable(test_neurodata src/test_neurodata.cpp)
 target_link_libraries(test_neurodata ${PROJECT_NAME} ${catkin_LIBRARIES}) 
+add_dependencies(test_neurodata ${catkin_EXPORTED_TARGETS})
 
 add_executable(test_neurodata_operations src/test_neurodata_operations.cpp)
 target_link_libraries(test_neurodata_operations ${PROJECT_NAME} ${catkin_LIBRARIES})
+add_dependencies(test_neurodata_operations ${catkin_EXPORTED_TARGETS})
 
 add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
 target_link_libraries(test_neurodata_tools ${PROJECT_NAME} ${catkin_LIBRARIES})
+add_dependencies(test_neurodata_tools ${catkin_EXPORTED_TARGETS})
 
 
 #################
