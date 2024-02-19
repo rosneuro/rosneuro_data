@@ -43,8 +43,8 @@ int main(int argc, char** argv) {
 
 
 	// Genereting some data
-	int32_t tritmp[tri.size()];
-	float eegtmp[eeg.size()];
+	int32_t* tritmp = new int32_t[tri.size()]; //error C2131 for MSVS  ( for GCC works either way ) 
+	float* eegtmp = new float[eeg.size()]; //error C2131 for MSVS  ( for GCC works either way ) 
 	for(auto i=0; i<tri.size(); i++)
 		tritmp[i] = i+1;
 	memcpy(tri.data(), tritmp, tri.size()*sizeof(int32_t));
@@ -66,6 +66,9 @@ int main(int argc, char** argv) {
 	for(auto it = mint32.data.begin(); it != mint32.data.end(); ++it)
 		printf("%d ", (*it));
 	printf("\n");
+
+	free(tritmp); //error C2131: free when done
+	free(eegtmp); //error C2131: free when done
 
 	return 0;
 }
