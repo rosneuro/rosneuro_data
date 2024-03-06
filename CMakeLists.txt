@@ -28,7 +28,13 @@ catkin_package(
 )
 
 ###########
-## Build ##
+
+catkin_add_gtest(test_neuro_data test/test_neuro_data.cpp)
+catkin_add_gtest(test_data_tools test/test_data_tools.cpp)
+target_link_libraries(test_neuro_data ${PROJECT_NAME} ${catkin_LIBRARIES})
+target_link_libraries(test_data_tools ${PROJECT_NAME} ${catkin_LIBRARIES})
+
+# Build ##
 ###########
 
 include_directories(${catkin_INCLUDE_DIRS} 
@@ -37,8 +43,7 @@ include_directories(${catkin_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME}
-			src/NeuroData.cpp
-			src/NeuroDataTools.cpp
+		src/NeuroDataTools.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} 
