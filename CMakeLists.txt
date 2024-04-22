@@ -29,8 +29,8 @@ catkin_package(
 
 ###########
 
-catkin_add_gtest(test_neuro_data test/test_neuro_data.cpp)
-catkin_add_gtest(test_data_tools test/test_data_tools.cpp)
+catkin_add_gtest(test_neuro_data test/TestNeuroData.cpp)
+catkin_add_gtest(test_data_tools test/TestDataTools.cpp)
 target_link_libraries(test_neuro_data ${PROJECT_NAME} ${catkin_LIBRARIES})
 target_link_libraries(test_data_tools ${PROJECT_NAME} ${catkin_LIBRARIES})
 
@@ -59,15 +59,15 @@ add_dependencies(${PROJECT_NAME}
 ## Executables ##
 #################
 
-add_executable(test_neurodata src/test_neurodata.cpp)
+add_executable(test_neurodata test_example/test_neurodata.cpp)
 target_link_libraries(test_neurodata ${PROJECT_NAME} ${catkin_LIBRARIES}) 
 add_dependencies(test_neurodata ${catkin_EXPORTED_TARGETS})
 
-add_executable(test_neurodata_operations src/test_neurodata_operations.cpp)
+add_executable(test_neurodata_operations test_example/test_neurodata_operations.cpp)
 target_link_libraries(test_neurodata_operations ${PROJECT_NAME} ${catkin_LIBRARIES})
 add_dependencies(test_neurodata_operations ${catkin_EXPORTED_TARGETS})
 
-add_executable(test_neurodata_tools src/test_neurodata_tools.cpp)
+add_executable(test_neurodata_tools test_example/test_neurodata_tools.cpp)
 target_link_libraries(test_neurodata_tools ${PROJECT_NAME} ${catkin_LIBRARIES})
 add_dependencies(test_neurodata_tools ${catkin_EXPORTED_TARGETS})
 
